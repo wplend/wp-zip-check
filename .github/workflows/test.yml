@@ -1,0 +1,27 @@
+name: test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: ['7.4', '8.1', '8.3']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: zip
+      - name: Lint
+        run: php -l wp-zip-check.php
+      - name: Sample plugin
+        run: |
+          mkdir -p t/demo
+          printf '<?php\n/**\n * Plugin Name: Demo\n * Version: 1.0.0\n * Requires PHP: 7.4\n */\n' > t/demo/demo.php
+          printf '=== Demo ===\n== Changelog ==\n= 1.0.0 =\n* First release\n' > t/demo/readme.txt
+          (cd t && zip -qr demo.zip demo)
+          php wp-zip-check.php t/demo.zip --expect=1.0.0 --no-clamav
