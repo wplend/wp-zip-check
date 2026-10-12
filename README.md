@@ -90,7 +90,7 @@ Get-FileHash -Algorithm SHA256 package.zip     # Windows PowerShell
 
 ## Background
 
-This is a standalone version of the package scanner we run on every archive at [WPlend](https://wplend.net) — see our [review methodology](https://wplend.net/review-methodology/).
+This is a standalone version of the package scanner we run on every archive at [WPlend](https://wplend.net) — see our [review methodology](https://wplend.net/wordpress-plugin-theme-review-methodology/).
 
 ## License
 
